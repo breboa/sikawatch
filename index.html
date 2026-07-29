@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SikaWatch — Before You Send</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f6f1e7;
+    --cream-card:#fffdf8;
+    --ink:#20342f;
+    --ink-soft:#4a5a55;
+    --rust:#b5502e;
+    --rust-dark:#8f3d22;
+    --green:#1f4a3f;
+    --gold:#c8952e;
+    --line:#e6ddc9;
+    --good:#3f6b4a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    padding-bottom:60px;
+  }
+  header.site{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 32px;
+    border-bottom:1px solid var(--line);
+    background:var(--cream);
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:22px;
+    color:var(--green);
+  }
+  .brand .mark{
+    width:32px;height:32px;border-radius:8px;
+    background:var(--rust);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:16px;font-family:'Fraunces',serif;
+  }
+  nav.site a{
+    color:var(--ink-soft);
+    text-decoration:none;
+    font-size:14px;
+    font-weight:500;
+    margin-left:24px;
+  }
+  .wrap{
+    max-width:1160px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  .hero{
+    padding:40px 0 24px;
+  }
+  .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    font-size:13px;
+    font-weight:700;
+    color:var(--rust);
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:34px;
+    line-height:1.25;
+    color:var(--green);
+    margin:0 0 8px;
+    max-width:720px;
+  }
+  .sub{
+    color:var(--ink-soft);
+    font-size:15px;
+    margin:0;
+  }
+  .grid-2{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:24px;
+    margin-top:24px;
+  }
+  .card{
+    background:var(--cream-card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:26px 28px;
+  }
+  .card h2{
+    font-family:'Fraunces',serif;
+    font-size:19px;
+    font-weight:600;
+    margin:0 0 4px;
+    color:var(--ink);
+  }
+  .card .card-sub{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin:0 0 18px;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+  }
+  th{
+    text-align:left;
+    text-transform:uppercase;
+    font-size:11px;
+    letter-spacing:0.05em;
+    color:#8a8270;
+    font-weight:600;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line);
+  }
+  td{
+    padding:14px 6px;
+    border-bottom:1px solid var(--line);
+    font-weight:500;
+  }
+  tr:last-child td{border-bottom:none;}
+  .badge{
+    display:inline-block;
+    background:#e4ede4;
+    color:var(--good);
+    font-size:11px;
+    font-weight:700;
+    padding:3px 8px;
+    border-radius:20px;
+    margin-left:8px;
+    vertical-align:middle;
+  }
+  .calc-row{
+    display:flex;
+    gap:12px;
+    margin-top:20px;
+  }
+  .calc-row input{
+    flex:1;
+    padding:12px 16px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-size:15px;
+    font-family:'Inter',sans-serif;
+    background:#fff;
+  }
+  .calc-row button{
+    background:var(--rust);
+    color:#fff;
+    border:none;
+    padding:12px 22px;
+    border-radius:8px;
+    font-weight:600;
+    font-size:14px;
+    cursor:pointer;
+    font-family:'Inter',sans-serif;
+  }
+  .calc-row button:hover{background:var(--rust-dark);}
+  .fraud-title{
+    color:var(--rust);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Fraunces',serif;
+    font-size:19px;
+    font-weight:600;
+    margin:0 0 4px;
+  }
+  .scam-item{
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .scam-item:last-of-type{border-bottom:none;}
+  .scam-tag{
+    color:var(--rust);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:4px;
+  }
+  .scam-headline{
+    font-weight:600;
+    font-size:14.5px;
+    margin:0 0 4px;
+  }
+  .scam-meta{
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+  .card-footer{
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:16px;
+    padding-top:14px;
+    border-top:1px solid var(--line);
+  }
+  .card-footer a{color:var(--green);font-weight:600;text-decoration:none;}
+  .section-title{
+    font-family:'Fraunces',serif;
+    font-size:22px;
+    font-weight:600;
+    color:var(--green);
+    margin:48px 0 20px;
+  }
+  .news-item{
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .news-item:last-child{border-bottom:none;}
+  .news-tag{
+    color:var(--rust);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:4px;
+  }
+  .news-headline{
+    font-size:14.5px;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .fetched-at{
+    font-size:12px;
+    color:#9a927e;
+    margin-top:4px;
+  }
+  @media (max-width:820px){
+    .grid-2{grid-template-columns:1fr;}
+    header.site{padding:16px 20px;}
+    .wrap{padding:0 20px;}
+    h1{font-size:26px;}
+    nav.site{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="brand"><span class="mark">₵</span>SikaWatch</div>
+  <nav class="site">
+    <a href="#">Rates</a>
+    <a href="#">Scam Alerts</a>
+    <a href="#">News</a>
+    <a href="#">Visa Watch</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Before You Send</div>
+    <h1>Tools for your money, today</h1>
+    <p class="sub">Built for Ghanaians sending money and keeping an eye on home, wherever you're living now.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h2>Rate comparison — send <span id="amtLabel">$500</span> to Ghana</h2>
+      <p class="card-sub">Advertised vs. effective rate, updated daily</p>
+      <table id="rateTable">
+        <thead>
+          <tr><th>Provider</th><th>Rate (GHS/USD)</th><th>Fee</th><th>You receive</th></tr>
+        </thead>
+        <tbody>
+          <tr data-rate="15.42" data-margin="0.3" data-fee="0"><td>LemFi <span class="badge">Best rate</span></td><td class="rate-cell">15.42</td><td>$0</td><td class="receive">GHS 7,710</td></tr>
+          <tr data-rate="15.31" data-margin="1.0" data-fee="3.20"><td>Wise</td><td class="rate-cell">15.31</td><td>$3.20</td><td class="receive">GHS 7,614</td></tr>
+          <tr data-rate="15.20" data-margin="1.8" data-fee="2.99"><td>WorldRemit</td><td class="rate-cell">15.20</td><td>$2.99</td><td class="receive">GHS 7,558</td></tr>
+          <tr data-rate="15.18" data-margin="1.7" data-fee="0"><td>Sendwave</td><td class="rate-cell">15.18</td><td>$0</td><td class="receive">GHS 7,590</td></tr>
+        </tbody>
+      </table>
+      <div class="calc-row">
+        <input type="number" id="amountInput" value="500" min="1" step="1">
+        <button onclick="recalc()">Recalculate</button>
+      </div>
+      <div class="fetched-at" id="rateStatus">Fetching live rate…</div>
+    </div>
+
+    <div class="card">
+      <h2 class="fraud-title">⚠ Fraud &amp; scam tracker</h2>
+      <p class="card-sub">Reported this week — reviewed before publishing</p>
+
+      <div class="scam-item">
+        <span class="scam-tag">⚠ Land scam</span>
+        <p class="scam-headline">Fake agent selling unregistered plots near Kumasi</p>
+        <p class="scam-meta">3 reports · verify any land agent via Ghana Lands Commission first</p>
+      </div>
+      <div class="scam-item">
+        <span class="scam-tag">⚠ Investment scam</span>
+        <p class="scam-headline">"Guaranteed return" crypto scheme targeting diaspora WhatsApp groups</p>
+        <p class="scam-meta">5 reports this week</p>
+      </div>
+      <div class="scam-item">
+        <span class="scam-tag">⚠ Remittance scam</span>
+        <p class="scam-headline">Caller impersonating LemFi support asking for OTP codes</p>
+        <p class="scam-meta">2 reports</p>
+      </div>
+
+      <div class="card-footer">Not legal advice · See something suspicious? <a href="#">Report it →</a></div>
+    </div>
+  </div>
+
+  <div class="section-title">News — Ghana policy and where you live, side by side</div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h2>🇬🇭 Ghana policy news</h2>
+      <div class="news-item">
+        <span class="news-tag">Policy</span>
+        <div class="news-headline">New US 1% remittance tax — what it actually means for you</div>
+      </div>
+      <div class="news-item">
+        <span class="news-tag">Markets</span>
+        <div class="news-headline">Cedi strengthens for third straight week</div>
+      </div>
+      <div class="news-item">
+        <span class="news-tag">Ghana</span>
+        <div class="news-headline">DBG opens new lending window for tech startups</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🌍 Citizenship &amp; Residency Watch</h2>
+      <div class="news-item">
+        <span class="news-tag">US</span>
+        <div class="news-headline">H-1B lottery changes for FY2027 — what it means for Ghanaian tech workers</div>
+      </div>
+      <div class="news-item">
+        <span class="news-tag">UK</span>
+        <div class="news-headline">Skilled Worker visa salary threshold rises again in August</div>
+      </div>
+      <div class="news-item">
+        <span class="news-tag">Canada</span>
+        <div class="news-headline">Express Entry draw targets healthcare occupations</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const EXCHANGE_API_KEY = 'aa1579754606853768edb3f6';
+let liveMidRate = null;
+
+async function fetchLiveRate(){
+  const statusEl = document.getElementById('rateStatus');
+  try{
+    const res = await fetch(`https://v6.exchangerate-api.com/v6/${EXCHANGE_API_KEY}/latest/USD`);
+    const data = await res.json();
+    if(data.result === 'success' && data.conversion_rates && data.conversion_rates.GHS){
+      liveMidRate = data.conversion_rates.GHS;
+      const stamp = new Date().toLocaleString(undefined, {dateStyle:'medium', timeStyle:'short'});
+      statusEl.textContent = `Live mid-market rate: ${liveMidRate.toFixed(4)} GHS/USD · fetched ${stamp}. Provider margins below are manually verified estimates, not live-scraped.`;
+    } else {
+      throw new Error(data['error-type'] || 'unexpected response');
+    }
+  } catch(e){
+    statusEl.textContent = 'Could not reach the live rate feed — showing last saved estimate instead.';
+  }
+  recalc();
+}
+
+function recalc(){
+  const amt = parseFloat(document.getElementById('amountInput').value) || 0;
+  document.getElementById('amtLabel').textContent = '$' + amt.toLocaleString();
+  const rows = document.querySelectorAll('#rateTable tbody tr');
+  rows.forEach(row => {
+    const fallbackRate = parseFloat(row.dataset.rate);
+    const margin = parseFloat(row.dataset.margin);
+    const rate = liveMidRate ? liveMidRate * (1 - margin / 100) : fallbackRate;
+    const fee = parseFloat(row.dataset.fee);
+    const receiveAmt = Math.max(amt - fee, 0) * rate;
+    row.querySelector('.rate-cell').textContent = rate.toFixed(2);
+    row.querySelector('.receive').textContent = 'GHS ' + receiveAmt.toLocaleString(undefined, {maximumFractionDigits:0});
+  });
+}
+
+window.addEventListener('DOMContentLoaded', fetchLiveRate);
+</script>
+
+</body>
+</html>
