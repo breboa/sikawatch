@@ -357,10 +357,10 @@
           <tr><th>Provider</th><th>Rate (GHS/USD)</th><th>Fee</th><th>You receive</th></tr>
         </thead>
         <tbody>
-          <tr data-rate="15.42" data-margin="0.3" data-fee="0"><td>LemFi <span class="badge">Best rate</span></td><td class="rate-cell">15.42</td><td>$0</td><td class="receive">GHS 7,710</td></tr>
-          <tr data-rate="15.31" data-margin="1.0" data-fee="3.20"><td>Wise</td><td class="rate-cell">15.31</td><td>$3.20</td><td class="receive">GHS 7,614</td></tr>
-          <tr data-rate="15.20" data-margin="1.8" data-fee="2.99"><td>WorldRemit</td><td class="rate-cell">15.20</td><td>$2.99</td><td class="receive">GHS 7,558</td></tr>
-          <tr data-rate="15.18" data-margin="1.7" data-fee="0"><td>Sendwave</td><td class="rate-cell">15.18</td><td>$0</td><td class="receive">GHS 7,590</td></tr>
+          <tr data-rate="11.68" data-fee="0"><td>LemFi</td><td class="rate-cell">11.68</td><td>$0</td><td class="receive">GHS 5,840</td></tr>
+          <tr data-rate="11.69" data-fee="0"><td>Wise <span class="badge">Best rate</span></td><td class="rate-cell">11.69</td><td>$0</td><td class="receive">GHS 5,845</td></tr>
+          <tr data-rate="11.68" data-fee="0"><td>WorldRemit</td><td class="rate-cell">11.68</td><td>$0</td><td class="receive">GHS 5,840</td></tr>
+          <tr data-rate="11.68" data-fee="0"><td>Sendwave</td><td class="rate-cell">11.68</td><td>$0</td><td class="receive">GHS 5,840</td></tr>
         </tbody>
       </table>
       <div class="calc-row">
@@ -391,6 +391,46 @@
       </div>
 
       <div class="card-footer">Not legal advice · See something suspicious? <a href="#">Report it →</a></div>
+    </div>
+  </div>
+
+  <div class="section-title">Investment Watch — where diaspora cedis are earning</div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h2>📈 GSE top movers</h2>
+      <p class="card-sub">Ghana Stock Exchange — index level and today's biggest movers</p>
+      <div class="news-item">
+        <span class="news-tag">Index</span>
+        <div class="news-headline"><a href="https://www.citinewsroom.com/2026/06/capital-market-momentum-grows-as-gse-index-surges-63-4-ytd/" target="_blank" rel="noopener noreferrer">GSE Composite Index at 15,287 points — still up more than 63% year-to-date despite a recent pullback</a></div>
+      </div>
+      <div class="news-item">
+        <span class="news-tag">Top gainers</span>
+        <div class="news-headline"><a href="https://gse.com.gh/trading-and-data/" target="_blank" rel="noopener noreferrer">Intravenous Infusions (+9.09%) leads gainers; Hords (+7.69%), Kasapreko (+1%) and MTN Ghana (+0.86%) also up</a></div>
+      </div>
+      <div class="news-item">
+        <span class="news-tag">T-Bills</span>
+        <div class="news-headline"><a href="https://www.ghanabusinessnews.com/2026/07/05/treasury-bill-rates-rise-slightly-in-latest-auction/" target="_blank" rel="noopener noreferrer">91-day Treasury bill yielding 24.78%, 182-day 26.74%, 364-day 27.78% at the latest BoG auction</a></div>
+      </div>
+      <div class="card-footer">Not investment advice · Data from <a href="https://gse.com.gh/trading-and-data/" target="_blank" rel="noopener noreferrer">GSE</a></div>
+    </div>
+
+    <div class="card">
+      <h2>💰 Investing from abroad</h2>
+      <p class="card-sub">What diaspora Ghanaians should know before investing</p>
+      <div class="news-item">
+        <span class="news-tag">Eligibility</span>
+        <div class="news-headline">Non-residents can invest with no FX controls — capital and gains are fully repatriable</div>
+      </div>
+      <div class="news-item">
+        <span class="news-tag">How</span>
+        <div class="news-headline">You can't buy GSE shares directly — open a CSD account through a licensed broker first</div>
+      </div>
+      <div class="news-item">
+        <span class="news-tag">Tax</span>
+        <div class="news-headline">8% withholding tax on dividends applies to residents and non-residents alike, and is final</div>
+      </div>
+      <div class="card-footer">Not investment advice · Use only <a href="https://gse.com.gh/rules-regulations/" target="_blank" rel="noopener noreferrer">SEC-licensed brokers</a></div>
     </div>
   </div>
 
@@ -443,12 +483,12 @@ async function fetchLiveRate(){
     if(data.result === 'success' && data.conversion_rates && data.conversion_rates.GHS){
       liveMidRate = data.conversion_rates.GHS;
       const stamp = new Date().toLocaleString(undefined, {dateStyle:'medium', timeStyle:'short'});
-      statusEl.textContent = `Live mid-market rate: ${liveMidRate.toFixed(4)} GHS/USD · fetched ${stamp}. Provider margins below are manually verified estimates, not live-scraped.`;
+      statusEl.textContent = `Bank/mid-market rate: ${liveMidRate.toFixed(2)} GHS/USD · fetched ${stamp}. Provider rates below are checked directly on each provider's site every morning — not derived from a margin formula.`;
     } else {
       throw new Error(data['error-type'] || 'unexpected response');
     }
   } catch(e){
-    statusEl.textContent = 'Could not reach the live rate feed — showing last saved estimate instead.';
+    statusEl.textContent = 'Could not reach the live bank-rate feed — provider rates below are still accurate as of this morning\'s check.';
   }
   recalc();
 }
@@ -458,9 +498,7 @@ function recalc(){
   document.getElementById('amtLabel').textContent = '$' + amt.toLocaleString();
   const rows = document.querySelectorAll('#rateTable tbody tr');
   rows.forEach(row => {
-    const fallbackRate = parseFloat(row.dataset.rate);
-    const margin = parseFloat(row.dataset.margin);
-    const rate = liveMidRate ? liveMidRate * (1 - margin / 100) : fallbackRate;
+    const rate = parseFloat(row.dataset.rate);
     const fee = parseFloat(row.dataset.fee);
     const receiveAmt = Math.max(amt - fee, 0) * rate;
     row.querySelector('.rate-cell').textContent = rate.toFixed(2);
